@@ -1,19 +1,13 @@
---------------------------------------------------------------------------------
----- AddOn Namespace
---------------------------------------------------------------------------------
-
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local AddOnFolderName = ... ---@type string
+local private = select(2, ...) ---@class PrivateNamespace
 
----@class PrivateNamespace
----@field MapHandler MapHandler
----@field People FriendStatistics Populated and maintained in UpdateStatistics()
----@field Preferences Preferences
----@field TooltipHandler TooltipHandler
-local private = select(2, ...)
-
-private.MapHandler = {}
-
-private.People = {
+-- ----------------------------------------------------------------------------
+-- Statistics: Populated and maintained in UpdateStatistics()
+-- ----------------------------------------------------------------------------
+local People = {
     BattleNet = {
         Online = 0,
         Total = 0,
@@ -28,15 +22,12 @@ private.People = {
     },
 }
 
-private.Preferences = {}
-private.TooltipHandler = {}
+private.People = People
 
---------------------------------------------------------------------------------
----- Helpers
---------------------------------------------------------------------------------
-
+-- ----------------------------------------------------------------------------
+-- Helpers
+-- ----------------------------------------------------------------------------
 function private.UpdateStatistics()
-    local People = private.People
     People.BattleNet.Total, People.BattleNet.Online = BNGetNumFriends()
     People.Friends.Total = C_FriendList.GetNumFriends()
     People.Friends.Online = C_FriendList.GetNumOnlineFriends()
@@ -46,16 +37,3 @@ function private.UpdateStatistics()
         People.GuildMembers.Total, _, People.GuildMembers.Online = GetNumGuildMembers()
     end
 end
-
---------------------------------------------------------------------------------
----- Types
---------------------------------------------------------------------------------
-
----@class FriendStatistics
----@field BattleNet FriendStatisticsValues
----@field Friends FriendStatisticsValues
----@field GuildMembers FriendStatisticsValues
-
----@class FriendStatisticsValues
----@field Online number
----@field Total number

@@ -7,13 +7,12 @@ local private = select(2, ...) ---@class PrivateNamespace
 -- ----------------------------------------------------------------------------
 -- Enumerations and Data
 -- ----------------------------------------------------------------------------
-
 local SortOrderEnum = {
     Ascending = 1,
     Descending = 2,
 }
 
-private.SortOrder = {
+local SortOrder = {
     Enum = SortOrderEnum,
     Name = {
         [SortOrderEnum.Ascending] = "Ascending",
@@ -21,10 +20,9 @@ private.SortOrder = {
     },
 }
 
-local SortOrder = private.SortOrder
+private.SortOrder = SortOrder
 
----@class Sorting
-private.Sorting = {
+local Sorting = {
     FieldIDs = {},
     FieldNames = {},
     --- Changing the order will cause SavedVariables to no longer map appropriately.
@@ -50,7 +48,6 @@ private.Sorting = {
             "PublicNote",
             "OfficerNote",
             "Class",
-            "RealmName",
         },
         WoWFriends = {
             "Level",
@@ -62,11 +59,10 @@ private.Sorting = {
             "Class",
         },
     },
-    ---@type table<string, fun(a?: BattleNetFriend|GuildMember|WoWFriend, b?: BattleNetFriend|GuildMember|WoWFriend): boolean>
     Functions = {},
 }
 
-local Sorting = private.Sorting
+private.Sorting = Sorting
 
 for sectionName, fieldNameList in pairs(Sorting.Fields) do
     local IDList = {}
