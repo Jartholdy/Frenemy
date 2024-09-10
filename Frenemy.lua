@@ -6,7 +6,6 @@ local private = select(2, ...) ---@class PrivateNamespace
 
 local DataObject = private.DataObject
 local MapHandler = private.MapHandler
-local Preferences = private.Preferences
 local TooltipHandler = private.TooltipHandler
 
 ---@class Frenemy: AceAddon, AceBucket-3.0, AceConsole-3.0, AceEvent-3.0, AceTimer-3.0
@@ -18,9 +17,9 @@ local HereBeDragons = LibStub("HereBeDragons-2.0")
 -- ----------------------------------------------------------------------------
 -- Events.
 -- ----------------------------------------------------------------------------
----@param _ string Callback name. Unused, but is passed from HereBeDragons so it must be handled in the parameter list.
+---@param callbackName string Unused, but is passed from HereBeDragons so it must be handled in the parameter list.
 ---@param mapID number
-function Frenemy:HandleZoneChange(_, mapID)
+function Frenemy:HandleZoneChange(callbackName, mapID)
     local needDisplayUpdate = MapHandler.Data.MapID ~= mapID
     MapHandler.Data.MapID = mapID
 
@@ -39,7 +38,7 @@ function Frenemy:HandleZoneChange(_, mapID)
         pvpType = "normal"
     end
 
-    local zonePVPStatus = MapHandler:GetZonePVPStatus(pvpType)
+    local zonePVPStatus = MapHandler.GetZonePVPStatus(pvpType)
     private.DB.ZoneData[MapHandler.Data.MapID] = zonePVPStatus
 
     MapHandler:SetRGBColor(MapHandler.Data.MapID, zonePVPStatus)
@@ -78,7 +77,7 @@ function Frenemy:OnEnable()
 end
 
 function Frenemy:OnInitialize()
-    local DB = Preferences:InitializeDatabase()
+    local DB = private.Preferences:InitializeDatabase()
 
     private.DB = DB
 
@@ -87,7 +86,7 @@ function Frenemy:OnInitialize()
         LDBIcon:Register(AddOnFolderName, DataObject, DB.DataObject.MinimapIcon)
     end
 
-    Preferences:SetupOptions()
+    private.Preferences:SetupOptions()
 
     self:RegisterChatCommand("frenemy", "ChatCommand")
 
@@ -118,7 +117,7 @@ end
 
 do
     local SUBCOMMAND_FUNCS = {
-        --@debug@
+        --[==[@debug@
         DEBUG = function()
             local debugger = private.GetDebugger()
 
@@ -131,7 +130,7 @@ do
 
             debugger:Display()
         end,
-        --@end-debug@
+        --@end-debug@]==]
     }
 
     ---@param input string
@@ -144,10 +143,14 @@ do
             if func then
                 func(arguments or "")
             end
+        else
+            local settingsPanel = SettingsPanel
 
-            return
+            if settingsPanel:IsVisible() then
+                settingsPanel:Hide()
+            else
+                Settings.OpenToCategory(private.Preferences.OptionsFrame)
+            end
         end
-
-        Preferences:ToggleOptionsVisibility()
     end
 end -- do-block

@@ -1,12 +1,11 @@
-## Interface: 100100
+## Interface: 100007
 ## Title: Frenemy
-## IconTexture: Interface\Calendar\MeetingIcon
 ## Notes: A customizable view of friends and guildmates.
 ## Author: Torhal
-## Version: @project-version@
-## X-Date: @project-date-iso@
-## X-Email: darkenelf@gmail.com
-## OptionalDeps: Ace3, CallbackHandler-1.0, HereBeDragons, LibDBIcon-1.0, LibDialog-1.0, LibQTip-2.0, LibTextDump-1.0
+## Version: 10.0.7.3
+## X-Date: 2023-04-05T06:23:38Z
+## X-Email: jcallahan@curse.com
+## OptionalDeps: Ace3, CallbackHandler-1.0, HereBeDragons, LibDBIcon-1.0, LibDialog-1.0, LibQTip-1.0, LibTextDump-1.0
 ## SavedVariables: FrenemyDB
 
 ## LoadManagers: AddonLoader
