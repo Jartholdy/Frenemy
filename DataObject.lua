@@ -33,11 +33,15 @@ local DataObject = LibStub("LibDataBroker-1.1"):NewDataObject(AddOnFolderName, {
             else
                 ToggleFriendsFrame(FRIENDS_FRAME_TAB_TOGGLES.FRIENDS)
             end
+        else
+            local settingsPanel = SettingsPanel
 
-            return
+            if settingsPanel:IsVisible() then
+                settingsPanel:Hide()
+            else
+                Settings.OpenToCategory(private.Preferences.OptionsFrame)
+            end
         end
-
-        private.Preferences:ToggleOptionsVisibility()
     end,
     OnEnter = function(displayFrame)
         TooltipHandler:Render(displayFrame)
@@ -48,7 +52,7 @@ local DataObject = LibStub("LibDataBroker-1.1"):NewDataObject(AddOnFolderName, {
 })
 
 private.DataObject = DataObject
-
+--[[
 function DataObject:UpdateDisplay()
     local text = ("%s: %s%d/%d|r"):format(
         FRIENDS,
@@ -69,5 +73,24 @@ function DataObject:UpdateDisplay()
         GREEN_FONT_COLOR_CODE,
         People.GuildMembers.Online,
         People.GuildMembers.Total
+    )
+end
+--]]
+function DataObject:UpdateDisplay()
+    local text = ("%s%d|r"):format(
+        BATTLENET_FONT_COLOR_CODE,
+        People.Friends.Online + People.BattleNet.Online
+    )
+
+    if not IsInGuild() then
+        self.text = text
+
+        return
+    end
+
+    self.text = ("%s / %s%d|r"):format(
+        text,
+        GREEN_FONT_COLOR_CODE,
+        People.GuildMembers.Online
     )
 end
