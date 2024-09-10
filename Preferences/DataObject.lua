@@ -1,36 +1,31 @@
---------------------------------------------------------------------------------
----- AddOn Namespace
---------------------------------------------------------------------------------
-
+-- ----------------------------------------------------------------------------
+-- AddOn Namespace
+-- ----------------------------------------------------------------------------
 local AddOnFolderName = ... ---@type string
 local private = select(2, ...) ---@class PrivateNamespace
 
 local L = LibStub("AceLocale-3.0"):GetLocale(AddOnFolderName)
 
----@class Preferences.DataObject
-local DataObjectPreferences = private.Preferences.DataObject
+-- ----------------------------------------------------------------------------
+-- DataObject Options
+-- ----------------------------------------------------------------------------
+---@type table
+local DataObjectOptions
 
---------------------------------------------------------------------------------
----- DataObject Options
---------------------------------------------------------------------------------
-
----@type AceConfig.OptionsTable
-local Options
-
-function DataObjectPreferences:GetOptions()
-    if not Options then
+local function GetOptions()
+    if not DataObjectOptions then
         local DB = private.DB
         local LDBIcon = LibStub("LibDBIcon-1.0")
 
-        Options = {
-            order = 2,
+        DataObjectOptions = {
+            order = 1,
             name = INFO,
             type = "group",
             args = {},
         }
 
         if LDBIcon then
-            Options.args.MiniMap = {
+            DataObjectOptions.args.miniMap = {
                 order = 1,
                 type = "toggle",
                 name = MINIMAP_LABEL,
@@ -46,12 +41,16 @@ function DataObjectPreferences:GetOptions()
         end
     end
 
-    return Options
+    return DataObjectOptions
 end
 
---------------------------------------------------------------------------------
----- Preferences Augmentation
---------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
+-- Preferences Augmentation
+-- ----------------------------------------------------------------------------
+---@class Preferences.DataObject
+private.Preferences.DataObject = {
+    GetOptions = GetOptions,
+}
 
 private.Preferences.DefaultValues.global.DataObject = {
     MinimapIcon = {
