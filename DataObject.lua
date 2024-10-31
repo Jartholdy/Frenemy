@@ -87,10 +87,11 @@ function DataObject:UpdateDisplay()
 
         return
     end
-
+    local numTotalMembers, numOnline, numOnlineMaxLevelMembers = GetNumGuildMembers()
     self.text = ("%s / %s%d|r"):format(
         text,
         GREEN_FONT_COLOR_CODE,
-        People.GuildMembers.Online
+        numOnline
     )
 end
+
