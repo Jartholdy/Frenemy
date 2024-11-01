@@ -9,5 +9,3 @@ A combined Friends List and Guild display for World of Warcraft
 - Right-click context menus on RealID or Toon names.
 - Ability to toggle notes to display as either columns or rows.
 - Zone name colorization by PVP status.
-
-Translators needed - apply localizations [here](http://www.wowace.com/addons/frenemy/localization/).
