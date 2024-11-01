@@ -1,8 +1,8 @@
-## Interface: 100007
+## Interface: 110005
 ## Title: Frenemy
 ## Notes: A customizable view of friends and guildmates.
 ## Author: Torhal
-## Version: 10.0.7.3
+## Version: 11.0.0.0a
 ## X-Date: 2023-04-05T06:23:38Z
 ## X-Email: jcallahan@curse.com
 ## OptionalDeps: Ace3, CallbackHandler-1.0, HereBeDragons, LibDBIcon-1.0, LibDialog-1.0, LibQTip-1.0, LibTextDump-1.0
